@@ -55,7 +55,7 @@ public class PlaygroundService {
                 .orElseThrow(() -> new PlaygroundNotFoundException("id = " + id));
         Playground updated = pgMapper.dtoToEntity(dto);
         updated.setId(id);
-        updated.setPlaygroundAvailability(found.getPlaygroundAvailability());
+//        updated.setPlaygroundAvailability(found.getPlaygroundAvailability());
 //        updated.setBookingList(found.getBookingList());
 //
 //        if (!updated.getPlaygroundAvailability().getIsAvailable()) {
