@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="liquibase (generated)" id="1709022859553-1">
+        <createTable tableName="playground">
+            <column name="latitude" type="FLOAT4">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="FLOAT4">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pg_availability_id" type="BIGINT"/>
+            <column autoIncrement="true" name="playground_id" startWith="3" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="playground_pkey"/>
+            </column>
+            <column name="location" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="playground_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1709022859553-2">
+        <createTable tableName="playground_availability">
+            <column name="available_from" type="time(6) WITHOUT TIME ZONE"/>
+            <column name="available_to" type="time(6) WITHOUT TIME ZONE"/>
+            <column name="capacity" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_available" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" startWith="3" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="playground_availability_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1709022859553-3">
+        <createTable tableName="sport">
+            <column autoIncrement="true" name="sport_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="sport_pkey"/>
+            </column>
+            <column name="sport_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1709022859553-4">
+        <addUniqueConstraint columnNames="pg_availability_id" constraintName="playground_pg_availability_id_key" tableName="playground"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1709022859553-5">
+        <createTable tableName="playground_sports">
+            <column name="playground_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sport_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1709022859553-6">
+        <addForeignKeyConstraint baseColumnNames="pg_availability_id" baseTableName="playground" constraintName="fkck9wef86irsad0kq7lv39h14x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="playground_availability" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1709022859553-7">
+        <addForeignKeyConstraint baseColumnNames="sport_id" baseTableName="playground_sports" constraintName="fkndlp7ilpulrisbcxur9lnerev" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="sport_id" referencedTableName="sport" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1709022859553-8">
+        <addForeignKeyConstraint baseColumnNames="playground_id" baseTableName="playground_sports" constraintName="fknm4w1adfxbi02t5j1a5vm59b0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="playground_id" referencedTableName="playground" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
