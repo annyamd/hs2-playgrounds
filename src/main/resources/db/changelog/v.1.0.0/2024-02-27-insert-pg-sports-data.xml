@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-sports-data-1">
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="4"/>
+            <column name="sport_id" value="1"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="5"/>
+            <column name="sport_id" value="2"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="6"/>
+            <column name="sport_id" value="3"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="7"/>
+            <column name="sport_id" value="4"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="8"/>
+            <column name="sport_id" value="5"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="9"/>
+            <column name="sport_id" value="6"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="10"/>
+            <column name="sport_id" value="7"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="11"/>
+            <column name="sport_id" value="8"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="12"/>
+            <column name="sport_id" value="1"/>
+        </insert>
+
+        <insert tableName="playground_sports">
+            <column name="playground_id" value="3"/>
+            <column name="sport_id" value="2"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

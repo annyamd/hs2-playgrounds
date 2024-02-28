@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-sport-data-1">
+        <insert tableName="sport">
+            <column name="sport_name" value="TENNIS"/>
+        </insert>
+        <insert tableName="sport">
+            <column name="sport_name" value="TABLE TENNIS"/>
+        </insert>
+        <insert tableName="sport">
+            <column name="sport_name" value="FOOTBALL"/>
+        </insert>
+        <insert tableName="sport">
+            <column name="sport_name" value="BASEBALL"/>
+        </insert>
+        <insert tableName="sport">
+            <column name="sport_name" value="CRICKET"/>
+        </insert>
+        <insert tableName="sport">
+            <column name="sport_name" value="BASKETBALL"/>
+        </insert>
+        <insert tableName="sport">
+            <column name="sport_name" value="HOCKEY"/>
+        </insert>
+        <insert tableName="sport">
+            <column name="sport_name" value="BADMINTON"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

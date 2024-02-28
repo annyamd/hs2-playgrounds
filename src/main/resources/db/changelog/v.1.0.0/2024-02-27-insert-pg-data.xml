@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-1">
+        <insert tableName="playground">
+            <column name="playground_name" value="First playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-2">
+        <insert tableName="playground">
+            <column name="playground_name" value="Second playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-3">
+        <insert tableName="playground">
+            <column name="playground_name" value="Third playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="5"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-4">
+        <insert tableName="playground">
+            <column name="playground_name" value="Fourth playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="6"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-5">
+        <insert tableName="playground">
+            <column name="playground_name" value="Fifth playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="7"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-6">
+        <insert tableName="playground">
+            <column name="playground_name" value="Sixth playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="8"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-7">
+        <insert tableName="playground">
+            <column name="playground_name" value="Seventh playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="9"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-8">
+        <insert tableName="playground">
+            <column name="playground_name" value="Eighth playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="10"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-9">
+        <insert tableName="playground">
+            <column name="playground_name" value="Ninth playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="11"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-data-10">
+        <insert tableName="playground">
+            <column name="playground_name" value="Tenth playground"/>
+            <column name="location" value="Somewhere"/>
+            <column name="latitude" value="59.979392"/>
+            <column name="longitude" value="30.258523"/>
+            <column name="pg_availability_id" value="12"/>
+        </insert>
+    </changeSet>
+
+
+
+</databaseChangeLog>

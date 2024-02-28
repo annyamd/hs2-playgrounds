@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-1">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="07:00"/>
+            <column name="available_to" value="23:00"/>
+            <column name="capacity" value="8"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-2">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="07:00"/>
+            <column name="available_to" value="23:00"/>
+            <column name="capacity" value="20"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-3">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="07:00"/>
+            <column name="available_to" value="23:00"/>
+            <column name="capacity" value="10"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-4">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="07:00"/>
+            <column name="available_to" value="23:00"/>
+            <column name="capacity" value="8"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-5">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="07:00"/>
+            <column name="available_to" value="23:00"/>
+            <column name="capacity" value="8"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-6">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="07:00"/>
+            <column name="available_to" value="23:00"/>
+            <column name="capacity" value="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-7">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="07:00"/>
+            <column name="available_to" value="23:00"/>
+            <column name="capacity" value="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-8">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="08:00"/>
+            <column name="available_to" value="18:00"/>
+            <column name="capacity" value="300"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-9">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="10:00"/>
+            <column name="available_to" value="18:00"/>
+            <column name="capacity" value="15"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kimdaniiell@gmail.com" id="2024-02-27-insert-pg-availability-data-10">
+        <insert tableName="playground_availability">
+            <column name="is_available" value="true"/>
+            <column name="available_from" value="07:00"/>
+            <column name="available_to" value="23:00"/>
+            <column name="capacity" value="10"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
