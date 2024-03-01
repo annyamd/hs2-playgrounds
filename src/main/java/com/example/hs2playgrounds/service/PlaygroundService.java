@@ -13,9 +13,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,66 +31,72 @@ public class PlaygroundService {
     private final PlaygroundMapper pgMapper = new PlaygroundMapper();
     private final AvailabilityMapper availabilityMapper = new AvailabilityMapper();
 
-    public List<PlaygroundDTO> findAllPlaygrounds(int page, int size) {
+    public Flux<PlaygroundDTO> findAllPlaygrounds(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Playground> playgroundPage = playgroundRepository.findAll(pageable);
-        return playgroundPage.getContent()
-                .stream()
-                .map(pgMapper::entityToDto)
-                .toList();
+        return Mono.just(pageable)
+                .flatMap(pg -> Mono
+                        .fromCallable(() -> playgroundRepository.findAll(pg))
+                        .subscribeOn(Schedulers.boundedElastic()))
+                .flatMapMany(Flux::fromIterable)
+                .map(pgMapper::entityToDto);
     }
 
-    public PlaygroundDTO getPlayground(Long id) {
-        Playground pg = playgroundRepository.findById(id)
-                .orElseThrow(() -> new PlaygroundNotFoundException("id = " + id));
-        return pgMapper.entityToDto(pg);
+    public Mono<PlaygroundDTO> getPlayground(Long id) {
+        return Mono.just(id)
+                .flatMap(this::getEntityById)
+                .map(pgMapper::entityToDto);
     }
 
-    public PlaygroundDTO createPlayground(PlaygroundDTO playgroundDTO) {
+    public Mono<PlaygroundDTO> createPlayground(PlaygroundDTO playgroundDTO) {
         Playground playground = pgMapper.dtoToEntity(playgroundDTO);
         playground.setId(null);
-        playgroundRepository.save(playground);
-        return pgMapper.entityToDto(playground);
+        return Mono.just(playground)
+                .flatMap(this::save)
+                .map(pgMapper::entityToDto);
     }
 
     @Transactional
-    public PlaygroundDTO updatePlayground(long id, PlaygroundDTO dto) {
-        Playground found = playgroundRepository.findById(id)
-                .orElseThrow(() -> new PlaygroundNotFoundException("id = " + id));
-        Playground updated = pgMapper.dtoToEntity(dto);
-        updated.setId(id);
-//        updated.setPlaygroundAvailability(found.getPlaygroundAvailability());
-//        updated.setBookingList(found.getBookingList());
-//
-//        if (!updated.getPlaygroundAvailability().getIsAvailable()) {
-//            updated.setBookingList(null);
-//        }
-
-        checkTime(found, updated);
-
-        playgroundRepository.save(updated);
-        return pgMapper.entityToDto(updated);
+    public Mono<PlaygroundDTO> updatePlayground(long id, PlaygroundDTO dto) {
+        return Mono.just(id)
+                .flatMap(this::getEntityById)
+                .map(it -> {
+                    Playground updated = pgMapper.dtoToEntity(dto);
+                    updated.setId(id);
+                    updated.setPlaygroundAvailability(it.getPlaygroundAvailability());
+                    return updated;
+                })
+                .flatMap(this::save)
+                .map(pgMapper::entityToDto);
     }
 
-    private void checkTime(Playground old, Playground updated) {
-        LocalTime oldStart = old.getPlaygroundAvailability().getAvailableFrom();
-        LocalTime oldEnd = old.getPlaygroundAvailability().getAvailableTo();
-        LocalTime newStart = updated.getPlaygroundAvailability().getAvailableFrom();
-        LocalTime newEnd = updated.getPlaygroundAvailability().getAvailableTo();
-
-//        if (oldStart != newStart || oldEnd != newEnd) {
-//            if (updated.getBookingList() != null && !updated.getBookingList().isEmpty()) {
-//                throw new InvalidAvailabilityException(
-//                        "Booking records exists for this playground. Switch isAvailable to false to remove all records.");
-//            }
-//        }
+    public Mono<Void> deletePlayground(long id) {
+        return Mono.just(id)
+                .flatMap(this::deleteById);
     }
 
+    private Mono<Playground> save(Playground pg) {
+        return Mono.fromCallable(() -> playgroundRepository.save(pg))
+                .subscribeOn(Schedulers.boundedElastic());
+    }
 
-    public void deletePlayground(long id) {
-        playgroundRepository.findById(id)
-                .orElseThrow(() -> new PlaygroundNotFoundException("id = " + id));
-        playgroundRepository.deleteById(id);
+    private Mono<Playground> getEntityById(long id) {
+        return Mono.fromCallable(() -> playgroundRepository.findById(id))
+                .subscribeOn(Schedulers.boundedElastic())
+                .flatMap(pg -> {
+                    if (pg.isEmpty()) {
+                        return Mono.error(new PlaygroundNotFoundException("id = " + id));
+                    }
+                    return Mono.just(pg.get());
+                });
+    }
+
+    private Mono<Void> deleteById(long id) {
+        return Mono.fromCallable(() -> {
+                    playgroundRepository.deleteById(id);
+                    return 1;
+                })
+                .subscribeOn(Schedulers.boundedElastic())
+                .then();
     }
 
     static class AvailabilityMapper implements Mapper<PlaygroundAvailability, PlaygroundAvailabilityDTO> {

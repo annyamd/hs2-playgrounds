@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 import static com.example.hs2playgrounds.util.ValidationMessages.MSG_ID_NEGATIVE;
 
@@ -22,11 +23,11 @@ public class PlaygroundFeignController {
     private final PlaygroundService playgroundService;
 
     @GetMapping(value = "/{playgroundId}")
-    public ResponseEntity<?> getPlaygroundById(
+    public Mono<ResponseEntity<?>> getPlaygroundById(
             @PathVariable @Min(value = 0, message = MSG_ID_NEGATIVE) long playgroundId
     ) {
-        PlaygroundDTO pg = playgroundService.getPlayground(playgroundId);
-        return ResponseEntity.ok().body(pg);
+        return playgroundService.getPlayground(playgroundId)
+                .map(ResponseEntity::ok);
     }
 
 }

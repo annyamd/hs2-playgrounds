@@ -31,13 +31,13 @@ public class Playground {
     @Column(name = "longitude", nullable = false)
     private Float longitude;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "playground_sports",
             joinColumns = @JoinColumn(name = "playground_id", referencedColumnName = "playground_id"),
             inverseJoinColumns = @JoinColumn(name = "sport_id", referencedColumnName = "sport_id"))
     private List<Sport> sports;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "pg_availability_id")
     private PlaygroundAvailability playgroundAvailability;
 

@@ -10,8 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import reactor.core.publisher.Mono;
 
 import static com.example.hs2playgrounds.util.ValidationMessages.*;
 
@@ -25,43 +24,44 @@ public class PlaygroundController {
     private final PlaygroundService playgroundService;
 
     @GetMapping(value = "/")
-    public ResponseEntity<?> getAllPlaygrounds(
+    public Mono<ResponseEntity<?>> getAllPlaygrounds(
             @RequestParam(value = "page", defaultValue = "0") @Min(value = 0, message = MSG_PAGE_NEGATIVE) int page,
             @RequestParam(value = "size", defaultValue = "5") @Min(value = 0, message = MSG_SIZE_NEGATIVE) @Max(value = 50, message = MSG_SIZE_TOO_BIG) int size
     ) {
-        List<PlaygroundDTO> playgroundDTOs = playgroundService.findAllPlaygrounds(page, size);
-        return ResponseEntity.ok().body(playgroundDTOs);
+        return playgroundService.findAllPlaygrounds(page, size)
+                .collectList()
+                .map(ResponseEntity::ok);
     }
 
     @GetMapping(value = "/{playgroundId}")
-    public ResponseEntity<?> getPlaygroundById(
+    public Mono<ResponseEntity<?>> getPlaygroundById(
             @PathVariable @Min(value = 0, message = MSG_ID_NEGATIVE) long playgroundId
     ) {
-        PlaygroundDTO pg = playgroundService.getPlayground(playgroundId);
-        return ResponseEntity.ok().body(pg);
+        return playgroundService.getPlayground(playgroundId)
+                .map(ResponseEntity::ok);
     }
 
     @PostMapping(value = "/")
-    public ResponseEntity<?> createPlayground(@Valid @RequestBody PlaygroundDTO playground) {
-        PlaygroundDTO created = playgroundService.createPlayground(playground);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    public Mono<ResponseEntity<?>> createPlayground(@Valid @RequestBody PlaygroundDTO playground) {
+        return playgroundService.createPlayground(playground)
+                .map(created -> ResponseEntity.status(HttpStatus.CREATED).body(created));
     }
 
     @PutMapping("/{playgroundId}")
-    public ResponseEntity<?> updatePlayground(
+    public Mono<ResponseEntity<?>> updatePlayground(
             @PathVariable @Min(value = 0, message = MSG_ID_NEGATIVE) long playgroundId,
             @Valid @RequestBody PlaygroundDTO playground
     ) {
-        PlaygroundDTO updated = playgroundService.updatePlayground(playgroundId, playground);
-        return ResponseEntity.ok().body(updated);
+        return playgroundService.updatePlayground(playgroundId, playground)
+                .map(ResponseEntity::ok);
     }
 
     @DeleteMapping("/{playgroundId}")
-    public ResponseEntity<?> deletePlayground(
+    public Mono<ResponseEntity<?>> deletePlayground(
             @PathVariable @Min(value = 0, message = MSG_ID_NEGATIVE) long playgroundId
     ) {
-        playgroundService.deletePlayground(playgroundId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return playgroundService.deletePlayground(playgroundId)
+                        .then(Mono.just(new ResponseEntity<>(HttpStatus.OK)));
     }
 
 }
